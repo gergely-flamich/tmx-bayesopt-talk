@@ -1,0 +1,19 @@
+#+TITLE: I, BayesOpt: Taking Humans out of the Loop
+#+author: Gergely Flamich
+
+* Abstract
+Consider trying to find the molecular structure of cancer medicine, based on previously known molecules; or predicting the size of underground oil reserves based on results of previous drillings.
+Finding the aerodynamically ideal shape for the parts of racing cars, or automatically fine-tuning the hyperparameters of machine learning algorithms. These problems are hard, because collecting 
+data is expensive and time-consuming, and different settings influence the outcomes in very complicated ways. Gaussian Process regression (GPR) is a very successful approach to deal with these situations.
+In this Teach Me X, I will give a hands-on introduction to GPR and explain some of the key properties that make it great. Then, I will give an introduction to perhaps the greatest success story of GPR: Bayesian Optimization (BO).
+Using BO, we can optimize an almost arbitrary black-box function. I will discuss some caveats of BO, and demonstrate its power by optimizing a small regression model. 
+
+* Prerequisites
+I will attempt to veer away from theory as much as I can with a good conscience. That said, very basic concepts of probability theory and some understanding of regression models will be useful.
+
+* Speaker bio
+My name is Greg, I am a first-year PhD candidate in Advanced Machine Learning at the University of Cambridge, supervised by Dr Jose Miguel Hernandez-Lobato and Dr Adrian Weller.
+My current interests include Bayesian optimization and latent variable models, with a particular focus on normalizing flows and variational auto-encoders. Before starting my 
+PhD, I worked on multi-objective Bayesian optimization as a research assistant to Dr Hernandez-Lobato.
+
+I hold an MPhil in Machine Learning and Machine Intelligence from the University of Cambridge, and a Joint BSc (Hons) in CS and Maths from the University of St Andrews.

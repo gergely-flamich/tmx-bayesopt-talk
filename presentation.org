@@ -1,0 +1,307 @@
+#+TITLE: I, BayesOpt
+#+SUBTITLE: Taking Humans Out of the Loop
+#+AUTHOR: Gergely Flamich
+
+#+REVEAL_ROOT: file:///Users/gergelyflamich/Documents/PhD/presentations/TMX_2021_BayesOpt/reveal.js-master
+#+OPTIONS: reveal_title_slide:"<h1>%t</h1><h2>%s</h2></br><h4>%a</h4>"
+#+OPTIONS: toc:nil
+#+REVEAL_INIT_OPTIONS: slideNumber:'c/t'
+
+* A Talk about Bayesian Optimization
+** Motivation
+   Let's look at a few practical problems!
+*** Aerodynamics
+#+ATTR_REVEAL: :frag (appear) 
+   [[./img/wing_params.png]]
+   
+#+ATTR_REVEAL: :frag (appear) 
+   [[./img/banana_cars.png]]
+
+*** Molecules
+#+ATTR_REVEAL: :frag (appear) 
+  [[./img/drug_disc.png]]
+
+*** Hardware
+#+ATTR_REVEAL: :frag (appear) 
+  [[./img/raspi.jpg]]
+
+*** Training Machine Learning Algorithms
+#+ATTR_REVEAL: :frag (appear) 
+  [[./img/neural_network.png]]
+
+*** Why These Problems Are Hard
+#+ATTR_REVEAL: :frag (appear) 
+    - Data is hard to obtain, e.g. takes long or very expensive
+    - Therefore data is scarce
+    - Design settings influence the outcome in complicated ways
+    - (Usually) no access to gradient information
+      
+** The Optimization Problem, Abstractly
+*** The Objective Function
+    
+#+ATTR_REVEAL: :frag (appear) 
+    - *Parameter space*: $\mathcal{X}$
+      * wing design, reactants, ML hyperparameters
+    - *Output space*: $\mathbb{R}$
+      * drug potency, test accuracy
+    - *Objective function*: $f: \mathcal{X} \rightarrow \mathbb{R}$
+      * wind tunnel, chemical reaction, ML training algorithm
+
+#+ATTR_REVEAL: :frag (appear) 
+    We assume that $f$ is very expensive to evaluate.
+
+*** The Optimization Problem
+    We want to find the parameter setting $x^* \in \mathcal{X}$ that minimizes $f$.
+    
+    In other words, want to find $x$ with smallest $f(x)$:
+    
+    $x^* = argmin_{x\in\mathcal{X}} f(x)$
+    
+ 
+** Possible Solutions
+*** Just try every possible parameter!
+    Evaluate $f$ on every parameter in $\mathcal{X}$, return best-performing one.
+#+ATTR_REVEAL: :frag (appear) 
+    - Will find best solution
+    - Cannot be done if the parameter space is large
+
+*** Randomly try possible parameters!
+    Sample $S$ parameter settings from $\mathcal{X}$, and evaluate $f$ only on those.
+    
+#+ATTR_REVEAL: :frag (appear) 
+    - Will find approximate solution
+    - Approximation becomes better as $S$ increases.
+    - Dumb (doesn't consider obtained information)
+    - Yet effective
+
+*** Try to predict $f$!
+#+ATTR_REVEAL: :frag (appear) 
+    Maybe we already collected some data: $\mathcal{D} = \{(x_1, f(x_1)), ... (x_N, f(x_N)) \}$.
+
+#+ATTR_REVEAL: :frag (appear) 
+    Then, we could *fit* maybe a *surrogate model* $g$ that is cheap to evaluate.
+
+#+ATTR_REVEAL: :frag (appear) 
+    We can evaluate $g$ on every parameter setting, and evaluate $f$ at the best setting, as predicted by $g$!
+
+*** Predict - Evaluate loop
+#+ATTR_REVEAL: :frag (appear) 
+    1. Fit $g$ to already existing data $\mathcal{D}$.
+    2. Find *proposal* setting:
+       
+       $\hat{x} = argmin_{x \in \mathcal{X}} g(x)$
+    4. Try proposal: $f(\hat{x})$.
+    5. Add $(\hat{x}, f(\hat{x}))$ to the dataset $\mathcal{D}$.
+       
+#+ATTR_REVEAL: :frag (appear) 
+    What $g$ to use?
+
+*** Fit a neural network! 
+    [[./img/stack_more_layers.png]]
+
+*** Problems with a neural network
+    [[./img/nn_fit_to_little_data.png]]
+    
+#+ATTR_REVEAL: :frag (appear) 
+    - Will overfit
+    - Will do weird stuff far away from the data
+    - How can we fix this?
+    
+#+BEGIN_NOTES
+  Enter speaker notes here.
+#+END_NOTES
+    
+* Gaussian Process Regression
+** Linear Regression
+   One model to rule them all
+   
+   $y = mx + b$
+
+*** Fitting to 2 points
+    [[./img/two_point_lin_fit.png]]
+
+*** Fitting to more than 2 points
+    [[./img/lin_fit.png]]
+
+*** What if we have only 1 point???
+   
+** Distributions over Functions
+
+*** Bayesian Linear Regression
+#+ATTR_REVEAL: :frag (appear) 
+    Fitting to 1 data point is clearly impossible.
+
+#+ATTR_REVEAL: :frag (appear) 
+    We will introduce uncertainty about the model, using some *prior* belief.
+
+#+ATTR_REVEAL: :frag (appear) 
+    Then, given the *evidence* we update, and get our *posterior* belief.
+
+#+ATTR_REVEAL: :frag (appear) 
+    The posterior will contain models that are *consistent* with our data.
+    
+*** Bayes Rule
+   $\overbrace{p(g \mid \mathcal{D})}^{\text{updated belief}} = \frac{\overbrace{p(\mathcal{D} \mid g)}^{\text{evidence}}\overbrace{p(g)}^{\text{earier belief}}}{\underbrace{p(\mathcal{D})}_{\text{"normalizing constant"}}}$
+
+*** Putting a Prior on Linear Regression
+    Assume, that the slope parameter is Gaussian distributed:
+    
+    $m \sim \mathcal{N}(0, 1), \quad b \sim \mathcal{N}(0, 1)$
+
+*** What the prior and posterior look like
+#+ATTR_REVEAL: :frag (appear) 
+    [[./img/bayes_lin_prior.png]]
+
+#+ATTR_REVEAL: :frag (appear) 
+    [[./img/bayes_lin_post.png]]
+
+** Gaussian Processes
+#+ATTR_REVEAL: :frag (appear) 
+   For linear regression we put the prior on the *parameters*, which then specified the function.
+
+#+ATTR_REVEAL: :frag (appear) 
+   Gaussian Processes (GP) allow us to put the prior *straight on the function*.
+   
+#+ATTR_REVEAL: :frag (appear) 
+   This is done through the use of *kernels functions* $k(x, x')$.
+
+#+ATTR_REVEAL: :frag (appear) 
+   The kernel defines how the function's values $f(x), f(x')$ are related to each other at the inputs $x, x'$.
+   
+** Different Kernels
+#+ATTR_REVEAL: :frag (appear) 
+   The kernel defines, what the properties that the samples obey. 
+
+#+ATTR_REVEAL: :frag (appear) 
+   This way we can bake *domain knowledge* into our model.
+
+*** Linear Kernel
+   $k_{lin}(x, x') = \alpha^2 (x \cdot x')$
+
+   - $\alpha^2$: variance
+   
+#+ATTR_REVEAL: :frag (appear) 
+    [[./img/bayes_lin_prior.png]]
+
+*** Exponentiated Quadratic Kernel
+    $k_{EQ}(x, x') = \alpha^2 \exp\left( -\frac{(x - x')^2}{2\ell^2} \right)$
+    
+   - $\alpha^2$: variance
+   - $\ell$: length scale
+    
+#+ATTR_REVEAL: :frag (appear) 
+    [[./img/rbf_prior.png]]
+ 
+*** Periodic Kernel
+    $k_{periodic}(x, x') = \alpha^2 \exp \left( -\frac{2\sin^2(\pi (x - x')^2 / p)}{\ell^2} \right)$
+
+   - $\alpha^2$: variance
+   - $\ell$: length scale
+   - $p$: period
+
+#+ATTR_REVEAL: :frag (appear) 
+   [[./img/periodic_prior.png]]
+ 
+** Non-parametric Models
+#+ATTR_REVEAL: :frag (appear) 
+   GPs are a form of *non-parametric* model.
+
+#+ATTR_REVEAL: :frag (appear) 
+   In our setting, this means, that the *structure* of the model is not fixed ahead of time, and its complexity grows as more information becomes available.
+
+** Prediction using Gaussian processes
+   Given a new input point $x^*$, GPs allow us to form the *predictive posterior*: $p(x^* \mid \mathcal{Data})$.
+   [[./img/post_rbf_gp.png]]
+    
+** Tuning the Hyperparameters
+#+ATTR_REVEAL: :frag (appear) 
+   Even though the model will accomodate the data, we would like the *model family* that fits the data best.
+
+#+ATTR_REVEAL: :frag (appear) 
+   Hence, we must tune the *hyperparameters* of the model.
+
+#+ATTR_REVEAL: :frag (appear) 
+   Luckily for GPs, there is a very natural way: we *maximize* the *prior* likelihood of the dataset:
+   $p(\mathcal{D})$.
+
+*** Small example
+    [[./img/pre-vs-post-optim.png]]
+   
+** Advantages of Gaussian Processes
+#+ATTR_REVEAL: :frag (appear) 
+   - Interpretable
+   - Very sample-efficient
+   - Very flexible
+   - Strong mathematical maturity
+     
+** Drawbacks of Gaussian Processes
+#+ATTR_REVEAL: :frag (appear) 
+   - Both training and prediction grow as $\mathcal{O}(N^3)$, where $N$ is the size of the dataset.
+   - Hard to do multi-output prediction (though not impossible)
+   - Finding the right kernel can be tricky for more complicated problems, especially in high dimensions
+
+* Bayesian Optimization
+** The Optimization Problem, Revisited
+#+ATTR_REVEAL: :frag (appear) 
+   - We wish to minimize the objective function $f$.
+   - Want to incorporate already collected information: $\mathcal{D} = \{(x_1, f(x_1)), ... (x_N, f(x_N)) \}$.
+   - Want to use a sample-efficient surrogate model
+   - GPs are a perfect match!
+
+** The final ingredient: Acquisition functions
+#+ATTR_REVEAL: :frag (appear) 
+   *Acquisition functions* tell us potentially how good a solution is.
+
+#+ATTR_REVEAL: :frag (appear) 
+   For us, acquistion functions will be the means through which we can *incorporate uncertainty* into the selection.
+
+*** The upper confidence bound
+   We will use the *upper confidence bound*:
+
+   $\alpha(x) = \mu(x) + 2\sigma(x)$
+
+   where $\mu(x)$ is the *predictive mean* of the GP and $\sigma(x)$ is the *predictive standard deviation*.
+   
+** Predict - Evaluate loop, Revisited
+   We pick our surrogate model to be a GP.
+
+   Then, the optimization loop becomes:
+#+ATTR_REVEAL: :frag (appear) 
+    1. Fit the GP to already existing data $\mathcal{D}$.
+    2. Find *proposal* setting:
+       
+       $\hat{x} = argmin_{x \in \mathcal{X}} \alpha(x)$
+    3. Try proposal: $f(\hat{x})$.
+    4. Add $(\hat{x}, f(\hat{x}))$ to the dataset $\mathcal{D}$.
+    5. Repeat until satisfaction.
+
+** A Toy Example
+   We are going to optimize the toy function
+
+   $f(x) = \frac{sin(x)}{x} + \frac{1}{2}\left(x - \frac{1}{2}\right)^2$
+
+*** Toy Example
+    [[./img/toy_example/gp_manual_0.png]]
+*** Toy Example
+    [[./img/toy_example/gp_manual_1.png]]
+*** Toy Example
+    [[./img/toy_example/gp_manual_2.png]]
+*** Toy Example
+    [[./img/toy_example/gp_manual_3.png]]
+*** Toy Example
+    [[./img/toy_example/gp_manual_4.png]]
+
+    
+** A More Involved Example
+* References
+** References I
+  - https://www.theguardian.com/society/2020/feb/20/antibiotic-that-kills-drug-resistant-bacteria-discovered-through-ai
+  - https://en.wikipedia.org/wiki/Raspberry_Pi
+  - Gaier, Adam, Alexander Asteroth, and Jean-Baptiste Mouret. "Aerodynamic design exploration through surrogate-assisted illumination." 18th AIAA/ISSMO Multidisciplinary Analysis and Optimization Conference. 2017.
+** References II
+  - Gómez-Bombarelli, Rafael, et al. "Automatic chemical design using a data-driven continuous representation of molecules." ACS central science 4.2 (2018): 268-276
+  - Snoek, Jasper, Hugo Larochelle, and Ryan P. Adams. "Practical bayesian optimization of machine learning algorithms." arXiv preprint arXiv:1206.2944 (2012).
+  - Shahriari, Bobak, et al. "Taking the human out of the loop: A review of Bayesian optimization." Proceedings of the IEEE 104.1 (2015): 148-175.
+** References III
+  - Srinivas, Niranjan, et al. "Gaussian process optimization in the bandit setting: No regret and experimental design." arXiv preprint arXiv:0912.3995 (2009).
+  - Garnett, Roman, Michael A. Osborne, and Stephen J. Roberts. "Bayesian optimization for sensor set selection." Proceedings of the 9th ACM/IEEE international conference on information processing in sensor networks. 2010.
