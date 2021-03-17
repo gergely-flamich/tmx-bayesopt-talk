@@ -2,7 +2,7 @@
 #+SUBTITLE: Taking Humans Out of the Loop
 #+AUTHOR: Gergely Flamich
 
-#+REVEAL_ROOT: file:///Users/gergelyflamich/Documents/PhD/presentations/TMX_2021_BayesOpt/reveal.js-master
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
 #+OPTIONS: reveal_title_slide:"<h1>%t</h1><h2>%s</h2></br><h4>%a</h4>"
 #+OPTIONS: toc:nil
 #+REVEAL_INIT_OPTIONS: slideNumber:'c/t'
