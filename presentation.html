@@ -31,61 +31,62 @@
 </section>
 
 <section>
-<section id="slide-org3589cc6">
-<h2 id="org3589cc6"><span class="section-number-2">1</span> A Talk about Bayesian Optimization</h2>
-<div class="outline-text-2" id="text-1">
-</div>
+<section id="slide-org4fe18ab">
+<h2 id="org4fe18ab"><span class="section-number-2">1</span> A Talk about Bayesian Optimization</h2>
+<p>
+Slides available at: <a href="https://rawcdn.githack.com/gergely-flamich/tmx-bayesopt-talk/ccf95ef72b9b1e586a3cd8a29bf5ece17a9efd99/presentation.html">https://rawcdn.githack.com/gergely-flamich/tmx-bayesopt-talk/ccf95ef72b9b1e586a3cd8a29bf5ece17a9efd99/presentation.html</a>
+</p>
 </section>
-<section id="slide-org74efeee">
-<h3 id="org74efeee"><span class="section-number-3">1.1</span> Motivation</h3>
+<section id="slide-org97e533f">
+<h3 id="org97e533f"><span class="section-number-3">1.1</span> Motivation</h3>
 <p>
 Let's look at a few practical problems!
 </p>
 </section>
-<section id="slide-org20d2c9d">
-<h4 id="org20d2c9d"><span class="section-number-4">1.1.1</span> Aerodynamics</h4>
+<section id="slide-orgc260b07">
+<h4 id="orgc260b07"><span class="section-number-4">1.1.1</span> Aerodynamics</h4>
 
-<div id="orgc1c1ed2" class="figure">
+<div id="org89c49d2" class="figure">
 <p><img src="./img/wing_params.png" alt="wing_params.png" class="fragment (appear)" />
 </p>
 </div>
 
 
-<div id="orge56f8ea" class="figure">
+<div id="orga719ee2" class="figure">
 <p><img src="./img/banana_cars.png" alt="banana_cars.png" class="fragment (appear)" />
 </p>
 </div>
 
 </section>
-<section id="slide-org030b7d6">
-<h4 id="org030b7d6"><span class="section-number-4">1.1.2</span> Molecules</h4>
+<section id="slide-orgf1d690b">
+<h4 id="orgf1d690b"><span class="section-number-4">1.1.2</span> Molecules</h4>
 
-<div id="org60137ae" class="figure">
+<div id="orgff38698" class="figure">
 <p><img src="./img/drug_disc.png" alt="drug_disc.png" class="fragment (appear)" />
 </p>
 </div>
 
 </section>
-<section id="slide-org37f0f96">
-<h4 id="org37f0f96"><span class="section-number-4">1.1.3</span> Hardware</h4>
+<section id="slide-org2cadfb9">
+<h4 id="org2cadfb9"><span class="section-number-4">1.1.3</span> Hardware</h4>
 
-<div id="orgaf1fd8c" class="figure">
+<div id="org4346599" class="figure">
 <p><img src="./img/raspi.jpg" alt="raspi.jpg" class="fragment (appear)" />
 </p>
 </div>
 
 </section>
-<section id="slide-orgecfa9b1">
-<h4 id="orgecfa9b1"><span class="section-number-4">1.1.4</span> Training Machine Learning Algorithms</h4>
+<section id="slide-org9b7f767">
+<h4 id="org9b7f767"><span class="section-number-4">1.1.4</span> Training Machine Learning Algorithms</h4>
 
-<div id="org7fd4e0d" class="figure">
+<div id="orgb700f15" class="figure">
 <p><img src="./img/neural_network.png" alt="neural_network.png" class="fragment (appear)" />
 </p>
 </div>
 
 </section>
-<section id="slide-orgf1be4cc">
-<h4 id="orgf1be4cc"><span class="section-number-4">1.1.5</span> Why These Problems Are Hard</h4>
+<section id="slide-orgf053292">
+<h4 id="orgf053292"><span class="section-number-4">1.1.5</span> Why These Problems Are Hard</h4>
 <ul>
 <li class="fragment appear">Data is hard to obtain, e.g. takes long or very expensive</li>
 <li class="fragment appear">Therefore data is scarce</li>
@@ -95,13 +96,13 @@ Let's look at a few practical problems!
 </ul>
 
 </section>
-<section id="slide-org92cc5c1">
-<h3 id="org92cc5c1"><span class="section-number-3">1.2</span> The Optimization Problem, Abstractly</h3>
+<section id="slide-org311212d">
+<h3 id="org311212d"><span class="section-number-3">1.2</span> The Optimization Problem, Abstractly</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
 </section>
-<section id="slide-org42da19a">
-<h4 id="org42da19a"><span class="section-number-4">1.2.1</span> The Objective Function</h4>
+<section id="slide-orgc094181">
+<h4 id="orgc094181"><span class="section-number-4">1.2.1</span> The Objective Function</h4>
 <ul>
 <li class="fragment appear"><b>Parameter space</b>: \(\mathcal{X}\)
 <ul>
@@ -126,8 +127,8 @@ We assume that \(f\) is very expensive to evaluate.
 </p>
 
 </section>
-<section id="slide-orgaa38aa1">
-<h4 id="orgaa38aa1"><span class="section-number-4">1.2.2</span> The Optimization Problem</h4>
+<section id="slide-org0090cba">
+<h4 id="org0090cba"><span class="section-number-4">1.2.2</span> The Optimization Problem</h4>
 <p>
 We want to find the parameter setting \(x^* \in \mathcal{X}\) that minimizes \(f\).
 </p>
@@ -142,13 +143,13 @@ In other words, want to find \(x\) with smallest \(f(x)\):
 
 
 </section>
-<section id="slide-orgd3eb4f6">
-<h3 id="orgd3eb4f6"><span class="section-number-3">1.3</span> Possible Solutions</h3>
+<section id="slide-orgb52b2b8">
+<h3 id="orgb52b2b8"><span class="section-number-3">1.3</span> Possible Solutions</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
 </section>
-<section id="slide-orge3ddd91">
-<h4 id="orge3ddd91"><span class="section-number-4">1.3.1</span> Just try every possible parameter!</h4>
+<section id="slide-org8d787f7">
+<h4 id="org8d787f7"><span class="section-number-4">1.3.1</span> Just try every possible parameter!</h4>
 <p>
 Evaluate \(f\) on every parameter in \(\mathcal{X}\), return best-performing one.
 </p>
@@ -159,8 +160,8 @@ Evaluate \(f\) on every parameter in \(\mathcal{X}\), return best-performing one
 </ul>
 
 </section>
-<section id="slide-orgab3ff2c">
-<h4 id="orgab3ff2c"><span class="section-number-4">1.3.2</span> Randomly try possible parameters!</h4>
+<section id="slide-orgfc76bbc">
+<h4 id="orgfc76bbc"><span class="section-number-4">1.3.2</span> Randomly try possible parameters!</h4>
 <p>
 Sample \(S\) parameter settings from \(\mathcal{X}\), and evaluate \(f\) only on those.
 </p>
@@ -174,8 +175,8 @@ Sample \(S\) parameter settings from \(\mathcal{X}\), and evaluate \(f\) only on
 </ul>
 
 </section>
-<section id="slide-org8188d38">
-<h4 id="org8188d38"><span class="section-number-4">1.3.3</span> Try to predict \(f\)!</h4>
+<section id="slide-org8061e7d">
+<h4 id="org8061e7d"><span class="section-number-4">1.3.3</span> Try to predict \(f\)!</h4>
 <p class="fragment (appear)">
 Maybe we already collected some data: \(\mathcal{D} = \{(x_1, f(x_1)), ... (x_N, f(x_N)) \}\).
 </p>
@@ -189,8 +190,8 @@ We can evaluate \(g\) on every parameter setting, and evaluate \(f\) at the best
 </p>
 
 </section>
-<section id="slide-org0316b59">
-<h4 id="org0316b59"><span class="section-number-4">1.3.4</span> Predict - Evaluate loop</h4>
+<section id="slide-org4992707">
+<h4 id="org4992707"><span class="section-number-4">1.3.4</span> Predict - Evaluate loop</h4>
 <ol>
 <li class="fragment appear">Fit \(g\) to already existing data \(\mathcal{D}\).</li>
 <li class="fragment appear"><p>
@@ -210,19 +211,19 @@ What \(g\) to use?
 </p>
 
 </section>
-<section id="slide-orga001729">
-<h4 id="orga001729"><span class="section-number-4">1.3.5</span> Fit a neural network!</h4>
+<section id="slide-orgfafa7b9">
+<h4 id="orgfafa7b9"><span class="section-number-4">1.3.5</span> Fit a neural network!</h4>
 
-<div id="org44b6c74" class="figure">
+<div id="org89c4725" class="figure">
 <p><img src="./img/stack_more_layers.png" alt="stack_more_layers.png" />
 </p>
 </div>
 
 </section>
-<section id="slide-org50e4770">
-<h4 id="org50e4770"><span class="section-number-4">1.3.6</span> Problems with a neural network</h4>
+<section id="slide-org5761bdd">
+<h4 id="org5761bdd"><span class="section-number-4">1.3.6</span> Problems with a neural network</h4>
 
-<div id="org32a1b88" class="figure">
+<div id="orge374c32" class="figure">
 <p><img src="./img/nn_fit_to_little_data.png" alt="nn_fit_to_little_data.png" />
 </p>
 </div>
@@ -244,13 +245,13 @@ Enter speaker notes here.
 </section>
 </section>
 <section>
-<section id="slide-org52f4c94">
-<h2 id="org52f4c94"><span class="section-number-2">2</span> Gaussian Process Regression</h2>
+<section id="slide-org4fe23ac">
+<h2 id="org4fe23ac"><span class="section-number-2">2</span> Gaussian Process Regression</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 </section>
-<section id="slide-org29c91ac">
-<h3 id="org29c91ac"><span class="section-number-3">2.1</span> Linear Regression</h3>
+<section id="slide-orga6091f2">
+<h3 id="orga6091f2"><span class="section-number-3">2.1</span> Linear Regression</h3>
 <p>
 One model to rule them all
 </p>
@@ -260,35 +261,35 @@ One model to rule them all
 </p>
 
 </section>
-<section id="slide-org5be8636">
-<h4 id="org5be8636"><span class="section-number-4">2.1.1</span> Fitting to 2 points</h4>
+<section id="slide-org53dd82d">
+<h4 id="org53dd82d"><span class="section-number-4">2.1.1</span> Fitting to 2 points</h4>
 
-<div id="org5b9b3ac" class="figure">
+<div id="orgbdce442" class="figure">
 <p><img src="./img/two_point_lin_fit.png" alt="two_point_lin_fit.png" />
 </p>
 </div>
 
 </section>
-<section id="slide-org6550ef3">
-<h4 id="org6550ef3"><span class="section-number-4">2.1.2</span> Fitting to more than 2 points</h4>
+<section id="slide-orgcb3b031">
+<h4 id="orgcb3b031"><span class="section-number-4">2.1.2</span> Fitting to more than 2 points</h4>
 
-<div id="org34d3626" class="figure">
+<div id="org468a34f" class="figure">
 <p><img src="./img/lin_fit.png" alt="lin_fit.png" />
 </p>
 </div>
 
 </section>
-<section id="slide-org153a7dc">
-<h4 id="org153a7dc"><span class="section-number-4">2.1.3</span> What if we have only 1 point???</h4>
+<section id="slide-org5680076">
+<h4 id="org5680076"><span class="section-number-4">2.1.3</span> What if we have only 1 point???</h4>
 
 </section>
-<section id="slide-orgba32e5f">
-<h3 id="orgba32e5f"><span class="section-number-3">2.2</span> Distributions over Functions</h3>
+<section id="slide-orga83f4a8">
+<h3 id="orga83f4a8"><span class="section-number-3">2.2</span> Distributions over Functions</h3>
 <div class="outline-text-3" id="text-2-2">
 </div>
 </section>
-<section id="slide-org856fbb9">
-<h4 id="org856fbb9"><span class="section-number-4">2.2.1</span> Bayesian Linear Regression</h4>
+<section id="slide-orgca54376">
+<h4 id="orgca54376"><span class="section-number-4">2.2.1</span> Bayesian Linear Regression</h4>
 <p class="fragment (appear)">
 Fitting to 1 data point is clearly impossible.
 </p>
@@ -306,15 +307,15 @@ The posterior will contain models that are <b>consistent</b> with our data.
 </p>
 
 </section>
-<section id="slide-org9f1ec3b">
-<h4 id="org9f1ec3b"><span class="section-number-4">2.2.2</span> Bayes Rule</h4>
+<section id="slide-orgcf9c4a2">
+<h4 id="orgcf9c4a2"><span class="section-number-4">2.2.2</span> Bayes Rule</h4>
 <p>
 \(\overbrace{p(g \mid \mathcal{D})}^{\text{updated belief}} = \frac{\overbrace{p(\mathcal{D} \mid g)}^{\text{evidence}}\overbrace{p(g)}^{\text{earier belief}}}{\underbrace{p(\mathcal{D})}_{\text{"normalizing constant"}}}\)
 </p>
 
 </section>
-<section id="slide-org2edf5c2">
-<h4 id="org2edf5c2"><span class="section-number-4">2.2.3</span> Putting a Prior on Linear Regression</h4>
+<section id="slide-org939d74d">
+<h4 id="org939d74d"><span class="section-number-4">2.2.3</span> Putting a Prior on Linear Regression</h4>
 <p>
 Assume, that the slope parameter is Gaussian distributed:
 </p>
@@ -324,23 +325,23 @@ Assume, that the slope parameter is Gaussian distributed:
 </p>
 
 </section>
-<section id="slide-orge162870">
-<h4 id="orge162870"><span class="section-number-4">2.2.4</span> What the prior and posterior look like</h4>
+<section id="slide-orgf1696f2">
+<h4 id="orgf1696f2"><span class="section-number-4">2.2.4</span> What the prior and posterior look like</h4>
 
-<div id="orgab1625f" class="figure">
+<div id="org982de71" class="figure">
 <p><img src="./img/bayes_lin_prior.png" alt="bayes_lin_prior.png" class="fragment (appear)" />
 </p>
 </div>
 
 
-<div id="orgbb3d35f" class="figure">
+<div id="orge5e0955" class="figure">
 <p><img src="./img/bayes_lin_post.png" alt="bayes_lin_post.png" class="fragment (appear)" />
 </p>
 </div>
 
 </section>
-<section id="slide-org14e5360">
-<h3 id="org14e5360"><span class="section-number-3">2.3</span> Gaussian Processes</h3>
+<section id="slide-org0dde959">
+<h3 id="org0dde959"><span class="section-number-3">2.3</span> Gaussian Processes</h3>
 <p class="fragment (appear)">
 For linear regression we put the prior on the <b>parameters</b>, which then specified the function.
 </p>
@@ -358,8 +359,8 @@ The kernel defines how the function's values \(f(x), f(x')\) are related to each
 </p>
 
 </section>
-<section id="slide-orga68d4df">
-<h3 id="orga68d4df"><span class="section-number-3">2.4</span> Different Kernels</h3>
+<section id="slide-orgd4149a5">
+<h3 id="orgd4149a5"><span class="section-number-3">2.4</span> Different Kernels</h3>
 <p class="fragment (appear)">
 The kernel defines, what the properties that the samples obey. 
 </p>
@@ -369,8 +370,8 @@ This way we can bake <b>domain knowledge</b> into our model.
 </p>
 
 </section>
-<section id="slide-org005ebf3">
-<h4 id="org005ebf3"><span class="section-number-4">2.4.1</span> Linear Kernel</h4>
+<section id="slide-orgcdc5558">
+<h4 id="orgcdc5558"><span class="section-number-4">2.4.1</span> Linear Kernel</h4>
 <p>
 \(k_{lin}(x, x') = \alpha^2 (x \cdot x')\)
 </p>
@@ -381,14 +382,14 @@ This way we can bake <b>domain knowledge</b> into our model.
 </ul>
 
 
-<div id="org976a0ab" class="figure">
+<div id="orgcf77f17" class="figure">
 <p><img src="./img/bayes_lin_prior.png" alt="bayes_lin_prior.png" class="fragment (appear)" />
 </p>
 </div>
 
 </section>
-<section id="slide-org16eace5">
-<h4 id="org16eace5"><span class="section-number-4">2.4.2</span> Exponentiated Quadratic Kernel</h4>
+<section id="slide-org73fd9f8">
+<h4 id="org73fd9f8"><span class="section-number-4">2.4.2</span> Exponentiated Quadratic Kernel</h4>
 <p>
 \(k_{EQ}(x, x') = \alpha^2 \exp\left( -\frac{(x - x')^2}{2\ell^2} \right)\)
 </p>
@@ -400,14 +401,14 @@ This way we can bake <b>domain knowledge</b> into our model.
 </ul>
 
 
-<div id="orgce49488" class="figure">
+<div id="orgd641d0b" class="figure">
 <p><img src="./img/rbf_prior.png" alt="rbf_prior.png" class="fragment (appear)" />
 </p>
 </div>
 
 </section>
-<section id="slide-org02feed1">
-<h4 id="org02feed1"><span class="section-number-4">2.4.3</span> Periodic Kernel</h4>
+<section id="slide-org5f43b49">
+<h4 id="org5f43b49"><span class="section-number-4">2.4.3</span> Periodic Kernel</h4>
 <p>
 \(k_{periodic}(x, x') = \alpha^2 \exp \left( -\frac{2\sin^2(\pi (x - x')^2 / p)}{\ell^2} \right)\)
 </p>
@@ -420,14 +421,14 @@ This way we can bake <b>domain knowledge</b> into our model.
 </ul>
 
 
-<div id="orgd020f43" class="figure">
+<div id="org74ebcb0" class="figure">
 <p><img src="./img/periodic_prior.png" alt="periodic_prior.png" class="fragment (appear)" />
 </p>
 </div>
 
 </section>
-<section id="slide-orge94bec9">
-<h3 id="orge94bec9"><span class="section-number-3">2.5</span> Non-parametric Models</h3>
+<section id="slide-orgcfbe63f">
+<h3 id="orgcfbe63f"><span class="section-number-3">2.5</span> Non-parametric Models</h3>
 <p class="fragment (appear)">
 GPs are a form of <b>non-parametric</b> model.
 </p>
@@ -437,16 +438,16 @@ In our setting, this means, that the <b>structure</b> of the model is not fixed 
 </p>
 
 </section>
-<section id="slide-org541b29d">
-<h3 id="org541b29d"><span class="section-number-3">2.6</span> Prediction using Gaussian processes</h3>
+<section id="slide-org0f0f311">
+<h3 id="org0f0f311"><span class="section-number-3">2.6</span> Prediction using Gaussian processes</h3>
 <p>
 Given a new input point \(x^*\), GPs allow us to form the <b>predictive posterior</b>: \(p(x^* \mid \mathcal{Data})\).
 <img src="./img/post_rbf_gp.png" alt="post_rbf_gp.png" />
 </p>
 
 </section>
-<section id="slide-org6cd365c">
-<h3 id="org6cd365c"><span class="section-number-3">2.7</span> Tuning the Hyperparameters</h3>
+<section id="slide-orgeab15ae">
+<h3 id="orgeab15ae"><span class="section-number-3">2.7</span> Tuning the Hyperparameters</h3>
 <p class="fragment (appear)">
 Even though the model will accomodate the data, we would like the <b>model family</b> that fits the data best.
 </p>
@@ -461,17 +462,17 @@ Luckily for GPs, there is a very natural way: we <b>maximize</b> the <b>prior</b
 </p>
 
 </section>
-<section id="slide-org7a224b3">
-<h4 id="org7a224b3"><span class="section-number-4">2.7.1</span> Small example</h4>
+<section id="slide-orgbad84a2">
+<h4 id="orgbad84a2"><span class="section-number-4">2.7.1</span> Small example</h4>
 
-<div id="org36b6220" class="figure">
+<div id="org404512f" class="figure">
 <p><img src="./img/pre-vs-post-optim.png" alt="pre-vs-post-optim.png" />
 </p>
 </div>
 
 </section>
-<section id="slide-org2dfb4b6">
-<h3 id="org2dfb4b6"><span class="section-number-3">2.8</span> Advantages of Gaussian Processes</h3>
+<section id="slide-org5e53366">
+<h3 id="org5e53366"><span class="section-number-3">2.8</span> Advantages of Gaussian Processes</h3>
 <ul>
 <li class="fragment appear">Interpretable</li>
 <li class="fragment appear">Very sample-efficient</li>
@@ -481,8 +482,8 @@ Luckily for GPs, there is a very natural way: we <b>maximize</b> the <b>prior</b
 </ul>
 
 </section>
-<section id="slide-org5aab7ec">
-<h3 id="org5aab7ec"><span class="section-number-3">2.9</span> Drawbacks of Gaussian Processes</h3>
+<section id="slide-orgab169e9">
+<h3 id="orgab169e9"><span class="section-number-3">2.9</span> Drawbacks of Gaussian Processes</h3>
 <ul>
 <li class="fragment appear">Both training and prediction grow as \(\mathcal{O}(N^3)\), where \(N\) is the size of the dataset.</li>
 <li class="fragment appear">Hard to do multi-output prediction (though not impossible)</li>
@@ -493,13 +494,13 @@ Luckily for GPs, there is a very natural way: we <b>maximize</b> the <b>prior</b
 </section>
 </section>
 <section>
-<section id="slide-org33fb5a9">
-<h2 id="org33fb5a9"><span class="section-number-2">3</span> Bayesian Optimization</h2>
+<section id="slide-org8c41d02">
+<h2 id="org8c41d02"><span class="section-number-2">3</span> Bayesian Optimization</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 </section>
-<section id="slide-org8075cfe">
-<h3 id="org8075cfe"><span class="section-number-3">3.1</span> The Optimization Problem, Revisited</h3>
+<section id="slide-orgc5c9dfa">
+<h3 id="orgc5c9dfa"><span class="section-number-3">3.1</span> The Optimization Problem, Revisited</h3>
 <ul>
 <li class="fragment appear">We wish to minimize the objective function \(f\).</li>
 <li class="fragment appear">Want to incorporate already collected information: \(\mathcal{D} = \{(x_1, f(x_1)), ... (x_N, f(x_N)) \}\).</li>
@@ -509,8 +510,8 @@ Luckily for GPs, there is a very natural way: we <b>maximize</b> the <b>prior</b
 </ul>
 
 </section>
-<section id="slide-org813e1f6">
-<h3 id="org813e1f6"><span class="section-number-3">3.2</span> The final ingredient: Acquisition functions</h3>
+<section id="slide-org6d32975">
+<h3 id="org6d32975"><span class="section-number-3">3.2</span> The final ingredient: Acquisition functions</h3>
 <p class="fragment (appear)">
 <b>Acquisition functions</b> tell us potentially how good a solution is.
 </p>
@@ -520,8 +521,8 @@ For us, acquistion functions will be the means through which we can <b>incorpora
 </p>
 
 </section>
-<section id="slide-org3ce7365">
-<h4 id="org3ce7365"><span class="section-number-4">3.2.1</span> The upper confidence bound</h4>
+<section id="slide-orga0ba3fe">
+<h4 id="orga0ba3fe"><span class="section-number-4">3.2.1</span> The upper confidence bound</h4>
 <p>
 We will use the <b>upper confidence bound</b>:
 </p>
@@ -535,8 +536,8 @@ where \(\mu(x)\) is the <b>predictive mean</b> of the GP and \(\sigma(x)\) is th
 </p>
 
 </section>
-<section id="slide-orgd831fad">
-<h3 id="orgd831fad"><span class="section-number-3">3.3</span> Predict - Evaluate loop, Revisited</h3>
+<section id="slide-orgd91dee7">
+<h3 id="orgd91dee7"><span class="section-number-3">3.3</span> Predict - Evaluate loop, Revisited</h3>
 <p>
 We pick our surrogate model to be a GP.
 </p>
@@ -560,8 +561,8 @@ Find <b>proposal</b> setting:
 </ol>
 
 </section>
-<section id="slide-org50a39be">
-<h3 id="org50a39be"><span class="section-number-3">3.4</span> A Toy Example</h3>
+<section id="slide-org8f2f65c">
+<h3 id="org8f2f65c"><span class="section-number-3">3.4</span> A Toy Example</h3>
 <p>
 We are going to optimize the toy function
 </p>
@@ -571,60 +572,60 @@ We are going to optimize the toy function
 </p>
 
 </section>
-<section id="slide-org86ec8ef">
-<h4 id="org86ec8ef"><span class="section-number-4">3.4.1</span> Toy Example</h4>
+<section id="slide-org7df2ab3">
+<h4 id="org7df2ab3"><span class="section-number-4">3.4.1</span> Toy Example</h4>
 
-<div id="orgab28a12" class="figure">
+<div id="orgc1b5c61" class="figure">
 <p><img src="./img/toy_example/gp_manual_0.png" alt="gp_manual_0.png" />
 </p>
 </div>
 </section>
-<section id="slide-org809a5e9">
-<h4 id="org809a5e9"><span class="section-number-4">3.4.2</span> Toy Example</h4>
+<section id="slide-org4d2f8c3">
+<h4 id="org4d2f8c3"><span class="section-number-4">3.4.2</span> Toy Example</h4>
 
-<div id="org6d8916f" class="figure">
+<div id="org555fcf8" class="figure">
 <p><img src="./img/toy_example/gp_manual_1.png" alt="gp_manual_1.png" />
 </p>
 </div>
 </section>
-<section id="slide-org1e7e3af">
-<h4 id="org1e7e3af"><span class="section-number-4">3.4.3</span> Toy Example</h4>
+<section id="slide-org9aba485">
+<h4 id="org9aba485"><span class="section-number-4">3.4.3</span> Toy Example</h4>
 
-<div id="orgfcfd810" class="figure">
+<div id="orge58ccde" class="figure">
 <p><img src="./img/toy_example/gp_manual_2.png" alt="gp_manual_2.png" />
 </p>
 </div>
 </section>
-<section id="slide-org1787a8d">
-<h4 id="org1787a8d"><span class="section-number-4">3.4.4</span> Toy Example</h4>
+<section id="slide-orgf7267f0">
+<h4 id="orgf7267f0"><span class="section-number-4">3.4.4</span> Toy Example</h4>
 
-<div id="org033d6c6" class="figure">
+<div id="org628c9aa" class="figure">
 <p><img src="./img/toy_example/gp_manual_3.png" alt="gp_manual_3.png" />
 </p>
 </div>
 </section>
-<section id="slide-org247ba26">
-<h4 id="org247ba26"><span class="section-number-4">3.4.5</span> Toy Example</h4>
+<section id="slide-org3e9ebfe">
+<h4 id="org3e9ebfe"><span class="section-number-4">3.4.5</span> Toy Example</h4>
 
-<div id="org117a681" class="figure">
+<div id="org5e27c86" class="figure">
 <p><img src="./img/toy_example/gp_manual_4.png" alt="gp_manual_4.png" />
 </p>
 </div>
 
 
 </section>
-<section id="slide-orgb008d68">
-<h3 id="orgb008d68"><span class="section-number-3">3.5</span> A More Involved Example</h3>
+<section id="slide-org0024532">
+<h3 id="org0024532"><span class="section-number-3">3.5</span> A More Involved Example</h3>
 </section>
 </section>
 <section>
-<section id="slide-org1045ee5">
-<h2 id="org1045ee5"><span class="section-number-2">4</span> References</h2>
+<section id="slide-orgb805cf4">
+<h2 id="orgb805cf4"><span class="section-number-2">4</span> References</h2>
 <div class="outline-text-2" id="text-4">
 </div>
 </section>
-<section id="slide-org308ef8a">
-<h3 id="org308ef8a"><span class="section-number-3">4.1</span> References I</h3>
+<section id="slide-org6af9639">
+<h3 id="org6af9639"><span class="section-number-3">4.1</span> References I</h3>
 <ul>
 <li><a href="https://www.theguardian.com/society/2020/feb/20/antibiotic-that-kills-drug-resistant-bacteria-discovered-through-ai">https://www.theguardian.com/society/2020/feb/20/antibiotic-that-kills-drug-resistant-bacteria-discovered-through-ai</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Raspberry_Pi">https://en.wikipedia.org/wiki/Raspberry_Pi</a></li>
@@ -632,8 +633,8 @@ We are going to optimize the toy function
 
 </ul>
 </section>
-<section id="slide-org4a0e118">
-<h3 id="org4a0e118"><span class="section-number-3">4.2</span> References II</h3>
+<section id="slide-org33df0ac">
+<h3 id="org33df0ac"><span class="section-number-3">4.2</span> References II</h3>
 <ul>
 <li>Gómez-Bombarelli, Rafael, et al. "Automatic chemical design using a data-driven continuous representation of molecules." ACS central science 4.2 (2018): 268-276</li>
 <li>Snoek, Jasper, Hugo Larochelle, and Ryan P. Adams. "Practical bayesian optimization of machine learning algorithms." arXiv preprint arXiv:1206.2944 (2012).</li>
@@ -641,8 +642,8 @@ We are going to optimize the toy function
 
 </ul>
 </section>
-<section id="slide-org2669a9f">
-<h3 id="org2669a9f"><span class="section-number-3">4.3</span> References III</h3>
+<section id="slide-org82deddc">
+<h3 id="org82deddc"><span class="section-number-3">4.3</span> References III</h3>
 <ul>
 <li>Srinivas, Niranjan, et al. "Gaussian process optimization in the bandit setting: No regret and experimental design." arXiv preprint arXiv:0912.3995 (2009).</li>
 <li>Garnett, Roman, Michael A. Osborne, and Stephen J. Roberts. "Bayesian optimization for sensor set selection." Proceedings of the 9th ACM/IEEE international conference on information processing in sensor networks. 2010.</li>

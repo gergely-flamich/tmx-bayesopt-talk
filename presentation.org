@@ -8,6 +8,7 @@
 #+REVEAL_INIT_OPTIONS: slideNumber:'c/t'
 
 * A Talk about Bayesian Optimization
+  Slides available at: https://rawcdn.githack.com/gergely-flamich/tmx-bayesopt-talk/ccf95ef72b9b1e586a3cd8a29bf5ece17a9efd99/presentation.html
 ** Motivation
    Let's look at a few practical problems!
 *** Aerodynamics
